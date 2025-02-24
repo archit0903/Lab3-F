@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Safe Lab 3 000882919 Archit</string>
+    <string name="locked_message">Locked</string>
+    <string name="rotate_to_portrait">Please rotate back to portrait mode.</string>
+    <string name="unlocked_data">This is the secret data.</string>
+    <string name="password">secret123</string>
+</resources>
