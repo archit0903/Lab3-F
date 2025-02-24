@@ -1,7 +1,6 @@
 package ca.mohawk.archit;
-//I, Archit Archit 000882919 certify that this material is my original work.
-//No other persons work has been used without due acknowledgement.
 
+import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
@@ -56,60 +55,60 @@ public class MainActivity extends AppCompatActivity {
             textView.setText(getString(R.string.unlocked_data));
         } else {
             int orientation = getResources().getConfiguration().orientation;
-            if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                textView.setText(getString(R.string.locked_message));
-            } else {
-                textView.setText(getString(R.string.rotate_to_portrait));
-            }
+            textView.setText(orientation == Configuration.ORIENTATION_PORTRAIT
+                    ? getString(R.string.locked_message)
+                    : getString(R.string.rotate_to_portrait));
         }
-        textView.setTextSize(22);
+        textView.setTextSize(24);
     }
 
-    private void showSnackbar() {
-        // Create regular Snackbar
-        final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "", Snackbar.LENGTH_INDEFINITE);
+    private class UnlockButtonListener implements View.OnClickListener {
+        private final EditText passwordField;
+        private final Snackbar snackbar;
 
-        // Inflate custom view
+        public UnlockButtonListener(EditText passwordField, Snackbar snackbar) {
+            this.passwordField = passwordField;
+            this.snackbar = snackbar;
+        }
+
+        @Override
+        public void onClick(View v) {
+            String input = passwordField.getText().toString();
+            if (input.equals(getString(R.string.password))) {
+                isUnlocked = true;
+                updateTextView();
+                snackbar.dismiss();
+            } else {
+                snackbar.dismiss();
+                showAlertDialog();
+            }
+        }
+    }
+
+    @SuppressLint("RestrictedApi")
+    private void showSnackbar() {
+        Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "", Snackbar.LENGTH_INDEFINITE);
         View customView = getLayoutInflater().inflate(R.layout.snackbar_unlock, null);
 
-        // Configure view parameters
         Snackbar.SnackbarLayout layout = (Snackbar.SnackbarLayout) snackbar.getView();
-        layout.setPadding(1, 1, 1, 1); // Remove default padding
-
-        // Add our custom view
+        layout.setPadding(1, 1, 1, 1);
         layout.addView(customView, 0);
 
-        // Get references to UI components
-        final EditText editText = customView.findViewById(R.id.editTextPassword);
+        EditText editText = customView.findViewById(R.id.editTextPassword);
         Button unlockButton = customView.findViewById(R.id.buttonUnlock);
-
-        // Replaced lambda with anonymous inner class
-        unlockButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String input = editText.getText().toString();
-                String correctPassword = getString(R.string.password);
-
-                if (input.equals(correctPassword)) {
-                    isUnlocked = true;
-                    updateTextView();
-                    snackbar.dismiss();
-                } else {
-                    snackbar.dismiss();
-                    showAlertDialog();
-                }
-            }
-        });
+        unlockButton.setOnClickListener(new UnlockButtonListener(editText, snackbar));
 
         snackbar.show();
     }
 
     private void showAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Incorrect Password");
-        builder.setMessage("The entered password is not correct.");
-        builder.setCancelable(false);
+        builder.setTitle("Incorrect Password")
+                .setMessage("The entered password is not correct.")
+                .setCancelable(false);
+
         AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
 }
