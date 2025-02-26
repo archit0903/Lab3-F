@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">Safe Lab 3 000882919 Archit</string>
-    <string name="locked_message">Locked</string>
-    <string name="rotate_to_portrait">Please rotate back to portrait mode.</string>
-    <string name="unlocked_data">This is the secret data.</string>
+    <string name="app_name">Lab 3 - Archit 000882919</string>
+    <string name="locked_message">/// Password Safe /// \n\nLocked!</string>
+    <string name="rotate_to_portrait">Turn to portrait to enter password.</string>
+    <string name="unlocked_data">/// Password Safe /// \n\nThis app: 123abc\ngmail:hellogmail\nmohawk:hellommail\nnetflix:myNetFlixPWD\nbank:makemoneyfast!</string>
+    <string name="button_unlock">Unlock</string>
+    <string name="pass_hint">Enter a password</string>
     <string name="password">secret123</string>
 </resources>

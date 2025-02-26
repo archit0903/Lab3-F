@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="16dp"
+    android:padding="24dp"
     >
 
     <EditText
@@ -11,15 +11,24 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:hint="Enter Password"
-        android:inputType="textPassword"/>
+        android:minHeight="24dp"
+        android:paddingVertical="12dp"
+        android:hint="@string/pass_hint"
+        android:inputType="textNoSuggestions|textVisiblePassword"
+        android:textColor="#000000"
+        android:backgroundTint="#000000" />
 
     <Button
         android:id="@+id/buttonUnlock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Unlock"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="12dp"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        android:text="@string/button_unlock"
         android:backgroundTint="@color/button_color"
         android:textColor="@color/button_text_color"/>
+
 
 </LinearLayout>
